@@ -27,26 +27,17 @@ constructor() {
         displayRow: '',
         displayDay:'',
         view:'month',
-        dayviewstart:'6:00',
-        dayviewend:'20:59',
-        events: [
-            {
-                id: 1,
-                title:'hello',
-                start: new Date('4/21/2020').setHours(10),
-                end: new Date().setHours(11)
-            }
-        ]
+        dayviewstart:'',
+        dayviewend:''
     }
 }
     
 
 
-    handleDrop = ({event,date}) => {
-        console.log(date)
-        this.setState(state => ({
-            events: [...state.events,{start:moment(date).format("l"),badgeColor:'#0051ff',id:state.events.length + 1}]
-        }))
+    handleDrop = (props) => {
+        if(this.props.dropFromOutside) {
+            this.props.dropFromOutside(props) 
+        }
     }
 
     setToday = () => this.setState(()=>({dateObject:new Date()}))
@@ -57,7 +48,9 @@ constructor() {
     }
 
     eventClicked = (props) => {
-        console.log(props)
+        if(this.props.eventClicked) {
+            this.props.eventClicked(props)
+        }
     }
 
 
@@ -79,7 +72,7 @@ constructor() {
     }
 
     getEventsByDate = (date) => {
-        const {events} = this.state        
+        const {events} = this.props        
         return events.filter(event => moment(event.start).format("l") === moment(date).format("l") )
     }
 
@@ -229,12 +222,26 @@ constructor() {
 
 
     componentDidUpdate(prevProps,prevState) {
-        const { view } = this.state
+        const { view, dayviewstart, dayviewend } = this.state
 
         if(view !== prevState.view) {
             this.clearEventsDisplayed()
             this.setToday()
-        }        
+        }  
+        if(dayviewstart !== this.props.dayviewstart) {
+            if(dayviewstart) {
+                this.setState({
+                    dayviewstart: this.props.dayviewstart
+                })
+            }
+        }
+        if(dayviewend !== this.props.dayviewend) {
+            if(dayviewend) {
+                this.setState({
+                    dayviewend: this.props.props.dayviewend
+                })
+            }
+        }       
     }
 
 
