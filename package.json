@@ -1,0 +1,50 @@
+{
+  "name": "mreactcalendar",
+  "version": "1.0.0",
+  "description": "React event calendar with week and day view.",
+  "main": "dist/umd/index.js",
+  "module": "dist/esm/index.js",
+  "source": "src/index.js",
+  "sideEffects": false,
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "yarn build-js-all && yarn copy-styles && yarn build-styles",
+    "build-js-all": "yarn build-js-esm && yarn build-js-umd",
+    "build-js-esm": "cross-env BABEL_ENV=production-esm babel src -d dist/esm --ignore **/*.spec.js,**/*.spec.jsx,**/*.spec.svg",
+    "build-js-umd": "cross-env BABEL_ENV=production-umd babel src -d dist/umd --ignore **/*.spec.js,**/*.spec.jsx,**/*.spec.svg",
+    "build-styles": "node-sass ./dist/Calendar.scss ./dist/Calendar.css",
+    "copy-styles": "node ./copy-styles.js",
+    "clean": "rimraf dist",
+    "prepublishOnly": "yarn clean && yarn build"
+  },
+  "keywords": [
+    "React",
+    "Calendar"
+  ],
+  "author": "MithlEsh",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/parser": "^7.9.4",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@dr.pogodin/babel-preset-svgr": "^1.0.9",
+    "@researchgate/babel-plugin-transform-scss-import-to-string": "^1.0.0",
+    "babel-plugin-transform-assets": "^1.0.2",
+    "cross-env": "^7.0.2",
+    "node-sass": "^4.14.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "rimraf": "^3.0.2"
+  },
+  "dependencies": {
+    "moment": "^2.24.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.3",
+    "react-dom": ">=16.3"
+  }
+}
