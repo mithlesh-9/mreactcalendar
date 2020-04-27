@@ -29,11 +29,11 @@ export default function DayView({
         <div>
             <div className="_heading">
                 <div>
-                <button onClick={()=>onPrevDay()}><img src="https://firebasestorage.googleapis.com/v0/b/mithleshyadavcomnp.appspot.com/o/left.svg?alt=media&token=17019ae5-6b59-4c78-80f4-a2cf6d8a18ff" alt="prev" /></button>
+                <button onClick={()=>onPrevDay()}><img src="https://firebasestorage.googleapis.com/v0/b/mithleshyadavcomnp.appspot.com/o/left.svg?alt=media&token=17019ae5-6b59-4c78-80f4-a2cf6d8a18ff" height="25" width="25"  alt="prev" /></button>
                 </div>
                     <div className="month-name" style={{fontSize:'1.8em'}}>{date}</div>
                 <div>
-                <button onClick={()=>onNextDay()}><img src="https://firebasestorage.googleapis.com/v0/b/mithleshyadavcomnp.appspot.com/o/right.svg?alt=media&token=17d7b4e9-2304-4480-8de3-62d6ffb600b4" alt="next" /></button>
+                <button onClick={()=>onNextDay()}><img src="https://firebasestorage.googleapis.com/v0/b/mithleshyadavcomnp.appspot.com/o/right.svg?alt=media&token=17d7b4e9-2304-4480-8de3-62d6ffb600b4" height="25" width="25"  alt="next" /></button>
                 </div>
             </div>
             <div className="day-view">
