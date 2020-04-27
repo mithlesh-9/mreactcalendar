@@ -6,14 +6,6 @@
     ],
     "plugins": [
       "@babel/proposal-class-properties",
-      ["transform-assets", {
-        "extensions": ["svg"],
-        "name": "[name].[ext]?[sha512:hash:base64:7]"
-      }],
-      [
-        "@researchgate/babel-plugin-transform-scss-import-to-string",
-        { "precision": 3 }
-      ]
     ],
     "env": {
       "production-esm": {

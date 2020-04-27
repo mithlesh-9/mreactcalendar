@@ -15,7 +15,6 @@ import WeekView from './components/WeekView'
 import DayView from './components/DayView'
 
 
-
 class Calendar extends PureComponent {
 constructor() {
     super();
@@ -23,12 +22,10 @@ constructor() {
         weekdaysShort: moment.weekdaysShort(),
         dateObject: new Date(),
         months: moment.months(),
-        displayedEvents: [],
+        displayedEventsDate:'',
         displayRow: '',
         displayDay:'',
         view:'month',
-        dayviewstart:'00:00',
-        dayviewend:'23:59'
     }
 }
     
@@ -43,7 +40,7 @@ constructor() {
     setToday = () => this.setState(()=>({dateObject:new Date()}))
 
 
-    onDropFromOutside = (e) => {
+    onDragOver = (e) => {
         e.preventDefault()
     }
 
@@ -72,8 +69,11 @@ constructor() {
     }
 
     getEventsByDate = (date) => {
-        const {events} = this.props        
-        return events.filter(event => moment(event.start).format("l") === moment(date).format("l") )
+        if(this.props.events) {
+            const {events} = this.props        
+            return events.filter(event => new Date(event.start).toDateString() === new Date(date).toDateString() ) || []   
+        }
+        return [];
     }
 
     daysInMonth = () => {
@@ -92,29 +92,29 @@ constructor() {
                             className={`calendar-day ${fullDate === moment().format("l") ? 'today' : ''} ${displayDay === currentDay ? 'selected' : '' } ${events.length > 0 ? 'clickable' : ''}`} 
                             onClick={() =>
                                 events.length > 0 
-                                ? this.displayEvents(events,`row-${getRowNumber(fullDate,blanks)}`,currentDay)
+                                ? this.displayEvents(fullDate,`row-${getRowNumber(fullDate,blanks)}`,currentDay)
                                 : this.emptyFunction()
                                 }
-                            onDragOver={this.onDropFromOutside}
-                            onDrop={(e,date = new Date(fullDate)) => this.handleDrop({event:e,date})}
+                                onDragOver={this.onDragOver}
+                                onDrop={(e,date = new Date(fullDate)) => this.handleDrop({event:e,date})}
                             
                         >
                             
                             {events.length > 0 && 
-                            <small className="badge">
+                            <small className="_badge">
                             {events.length}
                             </small>
                             }
                             <span>{d}</span>
                             {false &&
                             <>
-                            <div className="dots">
+                            <div className="_dots">
                             {events.length > 0 && events.map((event,i) => (
-                                <button key={`b${i}`} className="dot" style={{background:event.badgeColor ? event.badgeColor : '#0051ff'}}></button>
+                                <button key={`b${i}`} className="_dot" style={{background:event.badgeColor ? event.badgeColor : '#0051ff'}}></button>
                             ))}
                             </div>
                             {events.length > 10 && (
-                                <div className="more-text">+ more...</div>
+                                <div className="_more-text">+ more...</div>
                             )}
                             </>}
                         </td>
@@ -138,7 +138,13 @@ constructor() {
                   onDragOver={this.onDropFromOutside}
                   onDrop={(e,date = new Date(dayDate)) => this.handleDrop({event:e,date})}
                 >
-                    {events.map(eventData => (
+                    {events.length > 0 && events
+                        .sort((a,b)=> {
+                            if(a.start < b.start || a.end < b.end) return -1;
+                            if(a.start > b.start) return 1;
+                            return 0
+                            })
+                        .map(eventData => (
                         <div 
                             key={eventData.id} 
                             className="week-event" 
@@ -153,10 +159,10 @@ constructor() {
     }
     
 
-    displayEvents = (events,row,displayDay) => {
+    displayEvents = (date,row,displayDay) => {
 
         this.setState(state =>({
-            displayedEvents: events,
+            displayedEventsDate: date,
             displayDay: state.displayDay === displayDay ? '' : displayDay,
             displayRow: state.displayRow === row ? displayDay === state.displayDay ? '' : state.displayRow : row
         }))
@@ -180,7 +186,7 @@ constructor() {
 
     clearEventsDisplayed = () => {
         this.setState(()=>({
-            displayedEvents: [],
+            displayedEventsDate: '',
             displayRow: '',
             displayDay:'',
         }))
@@ -198,13 +204,6 @@ constructor() {
     }
 
     changeView = view => this.setState({view})
-
-
-
-    eventClicked = e => {
-        console.log(e)
-    }
-
 
 
     onNextWeek = () => {
@@ -239,13 +238,14 @@ constructor() {
             startN =Number(dayviewstart.split(':')[0]);
         }
         const events = this.getEventsByDate(date)
-                        .sort((a,b)=> {
-                            if(a.start < b.start || a.end < b.end) return -1;
-                            if(a.start > b.start) return 1;
-                            return 0
-                        })
 
-        return events.map((event,i) => {
+        return events.length > 0 && events
+                .sort((a,b)=> {
+                    if(a.start < b.start || a.end < b.end) return -1;
+                    if(a.start > b.start) return 1;
+                    return 0
+                })
+                .map((event,i) => {
             const start = new Date(event.start)
             const end = new Date(event.end)
             const startHour = start.getHours()
@@ -289,12 +289,16 @@ constructor() {
             dateObject, 
             view, 
             weekdaysShort,
-            displayedEvents, 
+            displayedEventsDate, 
             displayRow,
             } = this.state
         const { 
             dayviewstart,
             dayviewend } = this.props
+        let displayedEvents = []; 
+        if(displayedEventsDate) {
+            displayedEvents = this.getEventsByDate(displayedEventsDate);
+        }
         switch (view) {
             case "month":
                 return (
@@ -342,12 +346,12 @@ render() {
     return (
         <div>
             <div className="btns-group">
+                <button className="today-btn" onClick={this.setToday} style={{}}>Today</button>
+                <div>
                 <button className={`today-btn inverted${view === 'month' ? ' selected': ''}`} onClick={()=>this.changeView('month')}>Month</button>
                 <button className={`today-btn inverted${view === 'week' ? ' selected': ''}`} onClick={()=>this.changeView('week')}>Week</button>
                 <button className={`today-btn inverted${view === 'day' ? ' selected': ''}`} onClick={()=>this.changeView('day')}>Day</button>
-            </div>
-            <div className="btns-group" style={{justifyContent:'flex-start',marginTop:'.5em'}}>
-                <button className="today-btn" onClick={this.setToday} style={{}}>Today</button>
+                </div>
             </div>
             {this.renderView()}
         </div>

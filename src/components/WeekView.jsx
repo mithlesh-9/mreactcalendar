@@ -16,12 +16,14 @@ export default function WeekView({  onPrevWeek,
 
     const renderWeekDays = () => {
         const today = moment().format("l")
-        return weekdaysShort.map((day,i) => (
+        return weekdaysShort.map((day,i) => {
+            const DateString = new Date(getWeekDate(i,dateObject)).toDateString().split(' ')
+            return (
             <th key={day} className={`week-day${today === getWeekDate(i, dateObject) ? ' today ' : ''} _week_view_th`}>
                 <div>{day}</div>
-                <div className="date">{moment(getWeekDate(i,dateObject)).format('Do MMM')}</div> 
+                <div className="date">{`${DateString[1]} ${Number(DateString[2])}`}</div> 
             </th>
-        ))
+        )})
     }       
     
 
