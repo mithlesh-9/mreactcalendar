@@ -27,8 +27,8 @@ constructor() {
         displayRow: '',
         displayDay:'',
         view:'month',
-        dayviewstart:'',
-        dayviewend:''
+        dayviewstart:'00:00',
+        dayviewend:'23:59'
     }
 }
     
@@ -145,7 +145,7 @@ constructor() {
                             style={{background:eventData.badgeColor ? eventData.badgeColor : '#0051ff'}}
                             onClick={(event)=>this.eventClicked({event,data:eventData})}
                         >
-                            {moment(eventData.start).format('l')}
+                            {eventData.title}
                         </div>
                     ))}
                 </td>
@@ -222,34 +222,22 @@ constructor() {
 
 
     componentDidUpdate(prevProps,prevState) {
-        const { view, dayviewstart, dayviewend } = this.state
+        const { view } = this.state
 
         if(view !== prevState.view) {
             this.clearEventsDisplayed()
             this.setToday()
-        }  
-        if(dayviewstart !== this.props.dayviewstart) {
-            if(dayviewstart) {
-                this.setState({
-                    dayviewstart: this.props.dayviewstart
-                })
-            }
         }
-        if(dayviewend !== this.props.dayviewend) {
-            if(dayviewend) {
-                this.setState({
-                    dayviewend: this.props.props.dayviewend
-                })
-            }
-        }       
     }
 
 
 
     getDayEvents = (date) => {
-        const { dayviewstart, dayviewend } = this.state
-
-        const startN = Number(dayviewstart.split(':')[0])
+        const { dayviewstart } = this.props
+        let startN = 0
+        if(dayviewstart) {
+            startN =Number(dayviewstart.split(':')[0]);
+        }
         const events = this.getEventsByDate(date)
                         .sort((a,b)=> {
                             if(a.start < b.start || a.end < b.end) return -1;
@@ -288,7 +276,7 @@ constructor() {
                 onClick={(e)=>this.eventClicked({event:e,data:event})}
              >
                 <span>{convert24hrsTo12hrs(startHour,startMin)}</span>
-                <span className="text">Hello</span>
+                <span className="text">{event.title}</span>
                 <span>{convert24hrsTo12hrs(endHour,endMin)}</span>
              </div>)
             })
@@ -303,8 +291,10 @@ constructor() {
             weekdaysShort,
             displayedEvents, 
             displayRow,
+            } = this.state
+        const { 
             dayviewstart,
-            dayviewend } = this.state
+            dayviewend } = this.props
         switch (view) {
             case "month":
                 return (

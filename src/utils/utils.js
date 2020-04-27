@@ -1,7 +1,8 @@
 import moment from 'moment'
 
 export const convert24hrsTo12hrs = (time,min = '') => {
-    return time > 12 ? `${time - 12}${min ? `:${min < 9 ? `0${min}` : min}`: ''} PM` : `${time === 0 ? 12 : time}${min ? `:${min < 9 ? `0${min}` : min}`: ''} AM` 
+    const meridians = time > 11 ? ' PM' : ' AM'
+    return time > 12 ? `${time - 12}${min ? `:${min < 9 ? `0${min}` : min}`: ''}${meridians}` : `${time === 0 ? 12 : time}${min ? `:${min < 9 ? `0${min}` : min}`: ''}${meridians}` 
  }
 
  export const calculateMin = (startH,startM,endH,endM) => {

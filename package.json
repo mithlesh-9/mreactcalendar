@@ -1,6 +1,6 @@
 {
   "name": "mreactcalendar",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "React event calendar with week and day view.",
   "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
