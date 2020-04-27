@@ -53,7 +53,13 @@ export default function MonthView({onPrev,
         {displayedEvents.length  > 0 && displayRow === `row-${i}` &&
         <tr>
             <td colSpan="7" className="events-display">
-                    {displayedEvents.map((eventData,i) => (<div key={eventData.id} onClick={(event)=>eventClicked({event,data:eventData})} className="displayed-event"><button style={{backgroundColor: eventData.badgeColor ? eventData.badgeColor : '#0051ff' }} className="event-detail-badge"></button>{eventData.title}</div>))}
+                    {displayedEvents
+                        .sort((a,b)=> {
+                            if(a.start < b.start || a.end < b.end) return -1;
+                            if(a.start > b.start) return 1;
+                            return 0
+                        })
+                        .map((eventData,i) => (<div key={eventData.id} onClick={(event)=>eventClicked({event,data:eventData})} className="displayed-event"><button style={{backgroundColor: eventData.badgeColor ? eventData.badgeColor : '#0051ff' }} className="event-detail-badge"></button>{eventData.title}</div>))}
             </td>
         </tr>
         }

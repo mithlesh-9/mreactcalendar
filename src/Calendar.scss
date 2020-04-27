@@ -10,7 +10,7 @@ button {
 .btns-group {
 width: 100%;
 display: flex;
-justify-content: flex-end;
+justify-content: space-between;
 align-items: center;
 
 .today-btn {
@@ -90,7 +90,7 @@ tr:hover {
             color: rgb(82, 82, 82);
         }
     }
-    small {
+    ._badge {
         position: absolute;
         left: 15px;
         top: 10px;
@@ -153,8 +153,8 @@ tr:hover {
 }
 .event-detail-badge {
     margin: 0 10px;
-    width: 12px;
-    height: 16px;
+    width: 15px;
+    height: 15px;
 }
 
 
@@ -194,7 +194,8 @@ tr:hover {
     thead {
         tr {
             ._week_view_th {
-                border:none;  
+                border:none;
+                text-align: center;  
             }
             
             th {
@@ -202,6 +203,7 @@ tr:hover {
                 padding: .5em 0;
                 color: #111;
                 cursor: pointer;
+                text-align: center;  
 
                 .date {
                     font-weight: 300;
@@ -227,12 +229,13 @@ tr:hover {
 
         }
     }
+    tr {
+        width: 100%;
+    }
 }
 
 
-tr {
-    width: 100%;
-}
+
 
 .day-view {
     border: 1px solid rgba(212, 212, 212, 0.582);
@@ -349,7 +352,7 @@ tr {
             top: 10px;
             color: rgb(151, 144, 144);
         }
-        small {
+        ._badge {
             top: initial;
             left: 4px;
             height: 15px;
@@ -367,7 +370,9 @@ tr {
          
     }
 
-    .btns-group {        
+    .btns-group {   
+        flex-direction: column-reverse;
+        align-items: unset;     
         .today-btn {
         
             &.inverted {

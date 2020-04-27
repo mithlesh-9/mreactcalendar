@@ -1,6 +1,6 @@
 {
   "name": "mreactcalendar",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "React event calendar with week and day view.",
   "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
@@ -20,20 +20,23 @@
   },
   "keywords": [
     "React",
-    "Calendar"
+    "Calendar",
+    "Day View",
+    "Week View",
+    "Month View",
+    "Events"
   ],
-  "author": "MithlEsh",
+  "author": {
+    "name": "MithlEsh",
+    "email": "best1466@gmail.com"
+  },
   "license": "ISC",
   "devDependencies": {
     "@babel/cli": "^7.8.4",
     "@babel/core": "^7.9.0",
-    "@babel/parser": "^7.9.4",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
     "@babel/preset-env": "^7.9.5",
     "@babel/preset-react": "^7.9.4",
-    "@dr.pogodin/babel-preset-svgr": "^1.0.9",
-    "@researchgate/babel-plugin-transform-scss-import-to-string": "^1.0.0",
-    "babel-plugin-transform-assets": "^1.0.2",
     "cross-env": "^7.0.2",
     "node-sass": "^4.14.0",
     "react": "^16.13.1",
@@ -44,7 +47,11 @@
     "moment": "^2.24.0"
   },
   "peerDependencies": {
-    "react": ">=16.3",
-    "react-dom": ">=16.3"
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mithleshfreak/mreactcalendar.git"
   }
 }
