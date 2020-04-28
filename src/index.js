@@ -7,7 +7,7 @@ import {
         overLappingItemBefore,
         getRowNumber,
         firstDayOfMonth,
-        getWeekDate
+        getWeekDate,
     } from './utils/utils'
 
 import MonthView from './components/MonthView'
@@ -16,8 +16,8 @@ import DayView from './components/DayView'
 
 
 class Calendar extends PureComponent {
-constructor() {
-    super();
+constructor(props) {
+    super(props);
     this.state = {
         weekdaysShort: moment.weekdaysShort(),
         dateObject: new Date(),
@@ -25,7 +25,7 @@ constructor() {
         displayedEventsDate:'',
         displayRow: '',
         displayDay:'',
-        view:'month',
+        view:props.view || 'month',
     }
 }
     
@@ -135,7 +135,7 @@ constructor() {
                 <td
                   className="_week_view_td" 
                   key={`${day}-${i}`}
-                  onDragOver={this.onDropFromOutside}
+                  onDragOver={this.onDragOver}
                   onDrop={(e,date = new Date(dayDate)) => this.handleDrop({event:e,date})}
                 >
                     {events.length > 0 && events
@@ -332,6 +332,8 @@ constructor() {
                     dayviewstart={dayviewstart}
                     dayviewend={dayviewend}
                     getDayEvents={this.getDayEvents(dateObject)}
+                    onDragOver={this.onDragOver}
+                    onDrop={(e,date = new Date(dateObject)) => this.handleDrop({event:e,date})}
                 /> 
                 )
                 

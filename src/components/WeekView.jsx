@@ -2,9 +2,11 @@ import React from 'react';
 
 import moment from 'moment'
 import { 
-    getWeekDate
+    getWeekDate,
+    getOrdinalInd
 } from '../utils/utils'
-
+import Prev from '../../assets/left.svg'
+import Next from '../../assets/right.svg'
 
 export default function WeekView({  onPrevWeek,
                                     onNextWeek,
@@ -21,7 +23,7 @@ export default function WeekView({  onPrevWeek,
             return (
             <th key={day} className={`week-day${today === getWeekDate(i, dateObject) ? ' today ' : ''} _week_view_th`}>
                 <div>{day}</div>
-                <div className="date">{`${DateString[1]} ${Number(DateString[2])}`}</div> 
+                <div className="date">{`${Number(DateString[2])}${getOrdinalInd(Number(DateString[2]))} ${DateString[1]}`}</div> 
             </th>
         )})
     }       
@@ -31,11 +33,11 @@ export default function WeekView({  onPrevWeek,
         <div>
             <div className="_heading">
                 <div>
-                <button onClick={()=>onPrevWeek()}><img src="https://firebasestorage.googleapis.com/v0/b/mithleshyadavcomnp.appspot.com/o/left.svg?alt=media&token=17019ae5-6b59-4c78-80f4-a2cf6d8a18ff" height="25" width="25" alt="prev" /></button>
+                <button onClick={()=>onPrevWeek()}><img src={Prev} height="25" width="25" alt="prev" /></button>
                 </div>
                     <div className="month-name" style={{fontSize:'1.8em'}}>{weekText}</div>
                 <div>
-                <button onClick={()=>onNextWeek()}><img src="https://firebasestorage.googleapis.com/v0/b/mithleshyadavcomnp.appspot.com/o/right.svg?alt=media&token=17d7b4e9-2304-4480-8de3-62d6ffb600b4" height="25" width="25"  alt="next" /></button>
+                <button onClick={()=>onNextWeek()}><img src={Next} height="25" width="25"  alt="next" /></button>
                 </div>
             </div>
             <table className="_calendar_table" cellPadding={0}>

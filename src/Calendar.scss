@@ -194,8 +194,7 @@ tr:hover {
     thead {
         tr {
             ._week_view_th {
-                border:none;
-                text-align: center;  
+                border:none;  
             }
             
             th {
@@ -203,7 +202,6 @@ tr:hover {
                 padding: .5em 0;
                 color: #111;
                 cursor: pointer;
-                text-align: center;  
 
                 .date {
                     font-weight: 300;
@@ -229,13 +227,12 @@ tr:hover {
 
         }
     }
-    tr {
-        width: 100%;
-    }
 }
 
 
-
+tr {
+    width: 100%;
+}
 
 .day-view {
     border: 1px solid rgba(212, 212, 212, 0.582);
@@ -245,6 +242,7 @@ tr:hover {
 
     ._day_events {
         position: absolute;
+        height: 100%;
         left: 75px;
         width: calc(100% - 76px);
         right: 1px;
