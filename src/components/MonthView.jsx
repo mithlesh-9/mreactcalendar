@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Prev from '../../assets/left.svg'
+import Next from '../../assets/right.svg'
 
 export default function MonthView({onPrev,
                                     onNext,

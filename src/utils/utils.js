@@ -73,3 +73,10 @@ export const getWeekDate = (day, dateObject) => {
     const weekNumber = today.week();
     return moment(today.week(weekNumber).day(day).toDate()).format("l")
 }
+
+export const getOrdinalInd = number => {
+    let num = `${number}`
+        num = num[num.length - 1];
+    return number % 100 > 10 && number % 100 < 21 ? 'th' 
+        : num === '1' ? 'st' : num === '2' ? 'nd' : num === '3' ? 'rd' : 'th'
+}
