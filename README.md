@@ -14,4 +14,5 @@ Calendar with day, week and month view for your React app.
 * Install by executing `npm install mreactcalendar` or `yarn add mreactcalendar`.
 * Import by adding `import Calendar from 'mreactcalendar'`.
 * Use by adding `<Calendar />`. Use `events` prop to add events to the calendar.
+* For `Events` props it accepts array of object with property `id`, `title`,`start` and `end` as required one. 
 
