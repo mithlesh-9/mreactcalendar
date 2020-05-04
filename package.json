@@ -56,6 +56,6 @@
     "url": "https://github.com/mithleshfreak/mreactcalendar.git"
   },
   "publishConfig": { 
-    "registry": "https://npm.pkg.github.com/mithleshfreak"
+    "registry": "https://npm.pkg.github.com/"
    }
 }
