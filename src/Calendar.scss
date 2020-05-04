@@ -195,6 +195,7 @@ tr:hover {
         tr {
             ._week_view_th {
                 border:none;  
+                text-align: center;
             }
             
             th {
@@ -202,6 +203,8 @@ tr:hover {
                 padding: .5em 0;
                 color: #111;
                 cursor: pointer;
+                text-align: center;
+
 
                 .date {
                     font-weight: 300;
