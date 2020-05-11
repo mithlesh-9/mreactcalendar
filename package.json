@@ -1,6 +1,6 @@
 {
-  "name": "@mithleshfreak/mreactcalendar",
-  "version": "1.0.9",
+  "name": "mreactcalendar",
+  "version": "2.0.0",
   "description": "React event calendar with week day and month view.",
   "main": "dist/umd/index.js",
   "module": "dist/esm/index.js",
@@ -54,8 +54,6 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/mithleshfreak/mreactcalendar.git"
-  },
-  "publishConfig": { 
-    "registry": "https://npm.pkg.github.com/"
-   }
+  }
+  
 }
